@@ -1,0 +1,55 @@
+GRAPH = {\
+            'S': {'A': 6, 'B': 5, 'C': 10},\
+            'A': {'S': 6, 'E': 6},\
+            'B': {'E': 6, 'D': 7, 'S': 5},\
+            'C': {'S': 10, 'D': 6},\
+            'D': {'C': 6, 'B': 7, 'F': 6},\
+            'E': {'A': 6, 'B': 6, 'F': 4},\
+            'F': {'E': 4, 'D': 6, 'G': 3},\
+            'G': {'F': 3}\
+        }
+
+ 
+
+def a_star(source, destination):
+    heuristic_values = {\
+                        'S': 17,\
+                        'A': 10,\
+                        'B': 13,\
+                        'C': 4,\
+                        'E': 4,\
+                        'D': 2,\
+                        'F': 1,\
+                        'G': 0,\
+                    }
+    from queue import PriorityQueue
+    priority_queue, visited = PriorityQueue(), {}
+    priority_queue.put((heuristic_values[source], 0, source, [source]))
+    visited[source] = heuristic_values[source]
+    while not priority_queue.empty():
+        (heuristic, cost, vertex, path) = priority_queue.get()
+        if vertex == destination:
+            return heuristic, cost, path
+        for next_node in GRAPH[vertex].keys():
+            current_cost = cost + GRAPH[vertex][next_node]
+            heuristic = current_cost + heuristic_values[next_node]
+            if not next_node in visited or visited[next_node] >= heuristic:
+                visited[next_node] = heuristic
+                priority_queue.put((heuristic, current_cost, next_node, path + [next_node]))
+
+ 
+
+def main():
+    """Main function"""
+    print('ENTER SOURCE :', end=' ')
+    source = input().strip()
+    print('ENTER GOAL :', end=' ')
+    goal = input().strip()
+    if source not in GRAPH or goal not in GRAPH:
+        print('ERROR: CITY DOES NOT EXIST.')
+    else:
+        print('\nOPTIMAL PATH:')
+        heuristic, cost, optimal_path = a_star(source, goal)
+        print('HEURISTIC =', heuristic)
+        print('PATH COST =', cost)
+        print(' -> '.join(city for city in optimal_path))

@@ -1,0 +1,213 @@
+family = {
+
+
+
+
+  "John" : {"gender":"male",     "id":0, "Level":"0", "parentId":None, },
+
+  "Megan" :{"gender":"female",   "id":0, "Level":"0", "parentId":None, },
+
+
+
+
+  "William" :{"gender":"male",   "id":1, "Level":"1",  "parentId":0, },
+
+  "Emma" : {"gender":"female",   "id":1, "Level":"1",  "parentId":0, },
+
+  "David" : {"gender":"male",    "id":2, "Level":"1",  "parentId":0, },
+
+  "Olivia" :{"gender":"female",  "id":2, "Level":"1",  "parentId":0, },
+
+  "Adam" : {"gender":"male",     "id":3, "Level":"1",  "parentId":0, },
+
+  "Lily" : {"gender":"female",   "id":3, "Level":"1",  "parentId":0, },
+
+
+
+
+  "Chris" : {"gender":"male",     "id":4, "Level":"2", "parentId":1, },
+
+  "Stephanie" :{"gender":"female","id":5, "Level":"2", "parentId":1, },
+
+  "Wayne" : { "gender":"female",  "id":6, "Level":"2", "parentId":2, },
+
+  "Tiffany" : {"gender":"female", "id":7, "Level":"2", "parentId":2, },
+
+  "Julie" : {"gender":"female",   "id":8, "Level":"2", "parentId":2, },
+
+  "Neil" : { "gender":"male",     "id":9, "Level":"2", "parentId":2, },
+
+  "Peter" : {"gender":"male",     "id":10,"Level":"2", "parentId":2, },
+
+  "Sophia" :{"gender":"female",  "id":11, "Level":"2", "parentId":3, },
+
+}
+
+
+
+
+def getRelation(name1, name2):
+
+
+
+
+ if((family[name1]["Level"] == family[name2]["Level"]) and (family[name1]["id"] == family[name2]["id"])):
+
+
+
+
+  if(family[name1]["gender"]=="male"):
+
+
+
+
+   return "Partner"
+
+
+
+
+  if(family[name1]["gender"]=="female"):
+
+
+
+
+   return "Partner"
+
+
+
+
+ elif(family[name1]["Level"] > family[name2]["Level"]):
+
+
+
+
+  difference = abs(int(family[name1]["Level"]) - int(family[name2]["Level"]))
+
+
+
+
+  if(difference == 1 and (family[name1]["gender"]=="male")):
+
+
+
+
+   return "Son"
+
+
+
+
+  if(difference == 1 and (family[name1]["gender"]=="female")):
+
+
+
+
+   return "Daughter"
+
+
+
+
+  if(difference == 2 and (family[name1]["gender"]=="male")):
+
+
+
+
+   return "Grand Son"
+
+
+
+
+  if(difference == 2 and (family[name1]["gender"]=="female")):
+
+
+
+
+   return "Grand Daughter"
+
+
+
+
+ elif(family[name1]["Level"] < family[name2]["Level"]):
+
+
+
+
+  difference = abs(int(family[name1]["Level"]) - int(family[name2]["Level"]))
+
+
+
+
+  if(difference == 1 and (family[name1]["gender"]=="male")):
+
+
+
+
+   return "Father"
+
+
+
+
+  if(difference == 1 and (family[name1]["gender"]=="female")):
+
+
+
+
+   return "Mother"
+
+
+
+
+  if(difference == 2 and (family[name1]["gender"]=="male")):
+
+
+
+
+   return "Grand Father"
+
+
+
+
+  if(difference == 2 and (family[name1]["gender"]=="female")):
+
+
+
+
+   return "Grand Mother"
+
+
+
+
+ elif((family[name1]["Level"] == family[name2]["Level"]) and (family[name1]["parentId"] == family[name2]["parentId"])):
+
+
+
+
+  if(family[name1]["gender"]=="male"):
+
+
+
+
+   return "Brother"
+
+
+
+
+  if(family[name1]["gender"]=="female"):
+
+
+
+
+   return "Sister"
+
+
+
+
+ 
+
+
+
+
+name1=input("Name1:")
+
+name2=input("Name2:")
+
+print(getRelation(name1,name2))

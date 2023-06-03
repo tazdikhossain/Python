@@ -1,0 +1,73 @@
+Variables=['WA','NT','Q','NSW','V','SA','T']
+
+
+
+
+Domain = ['red', 'green','blue' ]
+
+
+
+
+adjacent_regions = {}
+
+adjacent_regions['WA'] = ['NT', 'SA']
+
+adjacent_regions['NT'] = ['WA', 'SA', 'Q']
+
+adjacent_regions['Q'] = ['NT', 'SA', 'NSW']
+
+adjacent_regions['NSW'] = ['Q', 'SA', 'V']
+
+adjacent_regions['V'] = ['NSW', 'SA']
+
+adjacent_regions['SA'] = ['WA', 'NT','Q','NSW','V']
+
+adjacent_regions['T'] = ['V']
+
+
+
+
+Domain_of_Variables = {}
+
+
+
+
+def neighbor_color(state, color):
+
+    for neighbor in adjacent_regions.get(state): 
+
+        color_of_neighbor = Domain_of_Variables.get(neighbor)
+
+        if color_of_neighbor == color:
+
+            return False
+
+    return True
+
+
+
+
+def color_for_Variables(state):
+
+    for color in Domain:
+
+        if neighbor_color(state, color):
+
+            return color
+
+    return None
+
+
+
+
+
+if __name__ == "__main__":
+
+    for state in Variables:
+
+        Domain_of_Variables[state] = color_for_Variables(state)
+
+
+
+
+    print (Domain_of_Variables)
